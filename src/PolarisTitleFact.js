@@ -16,8 +16,14 @@ export class PolarisTitleFact extends LitElement {
         margin-top: 2rem;
         gap: 16px;
         display: flex;
-        flex-wrap: wrap; 
+        flex-wrap: wrap;
         width: 100%;
+
+      }
+
+      .card-wrap-outer > * {
+        flex: 0 0 100%;
+        height: 44vw;
       }
 
       .blue-card {
@@ -27,6 +33,8 @@ export class PolarisTitleFact extends LitElement {
         align-items: center;
         display: grid;
         justify-content: center;
+        width: 100%;
+        position: relative;
       }
 
       .white-card {
@@ -34,8 +42,9 @@ export class PolarisTitleFact extends LitElement {
         box-shadow: 0 8px 16px 0 rgba(0,3,33,.1);
         color: #1e407c;
         align-items: center;
-        display: grid;
+        display: flex;
         justify-content: center;
+        width: 100%;
       }
 
       .blue-card-fade {
@@ -43,29 +52,31 @@ export class PolarisTitleFact extends LitElement {
         box-shadow: 0 8px 16px 0 rgba(0,3,33,.1);
         color: white;
         align-items: center;
-        display: grid;
+        display: flex;
         justify-content: center;
+        width: 100%;
+      }
+
+      @media (min-width: 500px) {
+        .card-wrap-outer > *{
+          height: 44vw;
+        }
       }
 
       @media (min-width: 768px) {
-        .card-wrap-outer {
-          height: 36vw;
-          flex: 0 0 48%;
-        }
-
-      @media (min-width: 500px) {
-        .card-wrap-outer {
-          height: 44vw;
-          flex: 0 0 48%;
+        .card-wrap-outer > *{
+          height: 32vw;
+          flex: 0 0 31%;
         }
       }
 
-      @media (min-width: 1080px) {
-        .card-wrap-outer{
-          height: 25vw;
-          flex: 0 0 48%;
+      @media (min-width: 1024px) {
+        .card-wrap-outer > * {
+          height: 24vw;
+          flex: 0 0 23%;
         }
       }
+
     `;
   }
 
