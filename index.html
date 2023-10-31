@@ -8,6 +8,7 @@
   <base href="/">
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
     html,
     body {
       margin: 0;
@@ -15,14 +16,60 @@
       font-family: sans-serif;
       background-color: #ededed;
     }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 16px;
+      width: 100%;
+    }
+
+    .container > * {
+      flex: 0 0 100%;
+      height: 44vw;
+    }
+
+    @media (min-width: 10px) {
+      .container > * {
+        height: 44vw;
+        flex: 0 0 100%;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .container > * {
+        height: 36vw;
+        flex: 0 0 48%;
+      }
+    }
+
+    @media (min-width: 1080px) {
+      .container > * {
+        height: 24vw;
+        flex: 0 0 32%;
+      }
+    }
+
   </style>
-  <title>polaris-chip</title>
+  <title>polaris-title-fact</title>
 </head>
 
 <body>
-  <polaris-title-fact></polaris-title-fact>
-
-  <script type="module" src="./src/polaris-title-fact.js"></script>
+  <div class="container">
+    <polaris-title-fact color="blue" title="88,000+ students"></polaris-title-fact>
+    <polaris-title-fact color="white" title="58%" subtext="Of students are Pennsylvania residents."></polaris-title-fact>
+    <polaris-title-fact color="fade" title="Students from 50 states and 145 countries"></polaris-title-fact>
+    <polaris-title-fact color="blue" title="Check out Undergraduate Admissions statistics" link="https://www.psu.edu/this-is-penn-state/facts-and-rankings/" cardimage="https://www.psu.edu/psu-edu-assets/images/power-facts/penn-state-tuition.jpg"></polaris-title-fact>
+    <polaris-title-fact color="blue" title="Nearly 10,000 international students"></polaris-title-fact>
+    <polaris-title-fact color="white" title="39%" subtext="Of students are from diverse backgrounds."></polaris-title-fact>
+    <polaris-title-fact color="navy" title="7900+ faculty across all campuses"></polaris-title-fact>
+    <polaris-title-fact color="navy" title="759,000+ alumni"></polaris-title-fact>
+    <polaris-title-fact title="See Penn State's Data Digest dashboards" link="https://datadigest.psu.edu/" cardimage="https://www.psu.edu/psu-edu-assets/images/power-facts/data-digest.jpg"></polaris-title-fact>
+    <script type="module" src="./src/polaris-title-fact.js"></script>
+  </div>
 </body>
 
 </html>
