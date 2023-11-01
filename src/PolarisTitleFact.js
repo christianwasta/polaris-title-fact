@@ -4,11 +4,10 @@ import { LitElement, html, css } from 'lit';
 export class PolarisTitleFact extends LitElement {
   static get properties() {
     return {
-      blueTitle: { type: String },
       color: { type: String },
       title: { type: String },
       link: { type: String },
-      cardimage: { type: String },
+      image: { type: String },
       subtext: { type: String },
     };
   }
@@ -16,7 +15,11 @@ export class PolarisTitleFact extends LitElement {
   static get styles() {
     return css`
       :host {
+        display: grid;
         font-family: "Roboto", "Franklin Gothic Medium";
+        --navy-blue: #001836;
+        --blue: #1e407c;
+        --fade: linear-gradient(180deg, rgba(30,64,124,1) 0%, rgba(0,30,68,1) 65%, rgba(0,30,68,1) 100%);
       }
 
       .card-title {
@@ -27,18 +30,17 @@ export class PolarisTitleFact extends LitElement {
       }
 
       .subtext {
-        font-size: 1rem;
+        font-size: 16px;
         overflow: hidden; 
       }
     
       .card {
         background-color: #fff;
+        color: #fff;
         box-shadow: 0 8px 16px 0 rgba(0,3,33,.1);
         align-items: center;
         display: flex;
         justify-content: center;
-        width: 100%;
-        gap: 16px;
         background-image: url(var(--card-background-image));
         position: relative;
       }
@@ -65,24 +67,27 @@ export class PolarisTitleFact extends LitElement {
       }
 
       .card[card-color="blue"] {
-        background-color: #1e407c;
-        color: #fff;
+        background-color: var(--blue);
       }
 
       .card[card-color="fade"] {
-        background: linear-gradient(180deg, rgba(30,64,124,1) 0%, rgba(0,30,68,1) 65%, rgba(0,30,68,1) 100%);;
-        color: #fff;
+        background: var(--fade);
       }
 
       .card[card-color="navy"] {
-        background-color: #001836;
-        color: #fff;
+        background-color: var(--navy-blue);
       }
+
+      .card[card-color="white"] {
+        background-color: #fff;
+        color: var(--navy-blue);
+      }
+      
       .white-hr {
         height: 4px;
         border: none;
         border-radius: 4px;
-        background-color: #1e407c;
+        background-color: var(--blue);
       }
 
       .white-text-wrapper {
@@ -92,22 +97,23 @@ export class PolarisTitleFact extends LitElement {
         overflow: hidden;
       }
 
-      @media (min-width: 10px) {
-        .card {
-          height: 45vw;
-        }
-        .card-title {
-          font-size: 1.5rem;
-        }
-      }
-
-      @media (min-width: 768px) {
+      
+      @media (max-width: 1080px) {
         .card {
           height: 36vw;
           flex: 0 0 48%;
         }
         .card-title {
-          font-size: 2rem;
+          font-size: 32px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .card {
+          height: 45vw;
+        }
+        .card-title {
+          font-size: 24px;
         }
       }
 
@@ -117,7 +123,7 @@ export class PolarisTitleFact extends LitElement {
           flex: 0 0 32%;
         }
         .card-title {
-          font-size: 2.5rem;
+          font-size: 40px;
         }
       }
     `;
@@ -125,10 +131,10 @@ export class PolarisTitleFact extends LitElement {
 
   constructor() {
     super();
-    this.color = 'white';
+    this.color = "";
     this.title = "Enter title";
-    this.link = "https://www.psu.edu/";
-    this.cardimage = "";
+    this.link = null;
+    this.image = "";
   }
 
   render() {
@@ -136,37 +142,23 @@ export class PolarisTitleFact extends LitElement {
     const svgLink = new URL('../assets/image.svg', import.meta.url).href;
     const hasSubText = this.hasAttribute('subtext');
 
-    if (hasLink) {
-      return html`
+    return html`
       <div class="card-wrap-outer">
-        <a class="link" href="${this.link}">
-          <div class="card" card-title="${this.title}" card-color="${this.color}" style="background-image: linear-gradient(to right, rgba(0, 3, 33, 0.5), rgba(0, 3, 33, 0.5)), url(${this.cardimage})">
+        <div class="card" card-title="${this.title}" card-color="${this.color}"
+        style=" ${hasLink ? `background-image: linear-gradient(to right, rgba(0, 3, 33, 0.5), rgba(0, 3, 33, 0.5)), url(${this.image})` : ''}">
+        ${hasLink ? html` 
+          <div class="card-title">${this.title}</div>   
+          <a class="link" href="${this.link}">
             <img class="svg-link" src="${svgLink}#svgView(viewBox(0,0,24,24))" />
-            <div class="card-title">${this.title}</div>
-          </div>
-        </a>
-      </div>
-      `;
-    } else if (hasSubText) {
-      return html`
-        <div class="card-wrap-outer">
-          <div class="card" card-title="${this.title}" card-color="${this.color}">
+          </a>` : hasSubText ? html`
             <div class="white-text-wrapper">
               <div class="card-title">${this.title}</div>
               <hr class="white-hr">
               <div class="subtext">${this.subtext}</div>
-            </div> 
+            </div>
+          ` : html`<div class="card-title">${this.title}</div>`}
           </div>
-        </div>
-      `;
-    } else {
-      return html`
-        <div class="card-wrap-outer">
-          <div class="card" card-title="${this.title}" card-color="${this.color}">
-            <div class="card-title">${this.title}</div>
-          </div>
-        </div>
-      `;
-    }
+      </div>
+    `;
   }
 }
